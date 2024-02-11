@@ -7,7 +7,7 @@
     }
 
     window.addEventListener("beforeunload", () => {
-        localStorage.setItem("dongho-sidebar-scroll", document.documentElement.scrollTop);
+        sessionStorage.setItem("dongho-sidebar-scroll", document.documentElement.scrollTop);
     });
 
     console.log("Hello");
