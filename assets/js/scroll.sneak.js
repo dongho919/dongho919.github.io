@@ -1,13 +1,13 @@
 {
     //let sidebar = document.querySelector(".sidebar");
 
-    let top = localStorage.getItem("sidebar-scroll");
+    let top = sessionStorage.getItem("dongho-sidebar-scroll");
     if (top !== null) {
         document.documentElement.scrollTop = parseInt(top, 10);
     }
 
     window.addEventListener("beforeunload", () => {
-        localStorage.setItem("sidebar-scroll", document.documentElement.scrollTop);
+        localStorage.setItem("dongho-sidebar-scroll", document.documentElement.scrollTop);
     });
 
     console.log("Hello");
