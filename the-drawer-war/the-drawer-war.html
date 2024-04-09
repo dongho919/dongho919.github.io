@@ -42,6 +42,7 @@
 						To my surprise, there weren't that many great resources out there when it came to game physics. I've gotten help from <b><a href="https://allenchou.net/">Allen Chou</a></b>,
 						<b>Kevin Yu</b>, <b><a href="https://www.gdcvault.com/play/1020603/Physics-for-Game-Programmers-Understanding">Erin Catto</a></b>, and DigiPen Professor
 						<b>Erik Mohrmann</b>.
+						<br /><br />
 					</div>
 				</div>
 
@@ -69,6 +70,7 @@
 						
 						We can make an optimization here called <b>Edge Collison</b>. This is when the two edges in contact are parallel and therefore the two contact
 						points can simply be treated as one, halving the processing needs and making the simulation more stable.
+						<br /><br />
 					</div>
 					<div class="col-6 col-12-medium imp-medium">
 						<span class="image fit"><img src="edge-collision.gif" alt="" /></span>
@@ -82,6 +84,7 @@
 						I won't go into the nitty gritty details of how that works, but if you'd like to know more,
 						<a href="https://research.ncl.ac.uk/game/mastersdegree/gametechnologies/physicstutorials/5collisionresponse/Physics%20-%20Collision%20Response.pdf">this paper</a> goes
 						into how the impulse-based approach works.
+						<br /><br />
 					</div>
 					<div class="col-6 col-12-medium imp-medium">
 						<span class="image fit"><img src="collisions.gif" alt="" /></span>
@@ -94,6 +97,7 @@
 						Stability becomes important when there are constant contact points that are under constant pressure, as small errors in impulse can quickly accumulate
 						over a few frames and end in a catastrophe. I've looked into it and chose to implement <b>Sequential Impulses</b> and <b>Baumgarte Stabilization</b>.
 						These methods will prevent objects from sinking into each other or getting lodged.
+						<br /><br />
 					</div>
 					<div class="col-6 col-12-medium imp-medium">
 						<span class="image fit"><img src="towers.gif" alt="" /></span>
@@ -107,6 +111,7 @@
 						stabilization can make a tower stable, but a structure like a pyramid would also require precise tangential impulse to stay still.<br /><br />
 
 						An overview of stability and friction can be found <a href="http://allenchou.net/2013/12/game-physics-resolution-contact-constraints/">here</a>.
+						<br /><br />
 					</div>
 					<div class="col-6 col-12-medium imp-medium">
 						<span class="image fit"><img src="pyramid.gif" alt="" /></span>
@@ -120,6 +125,7 @@
 						The only regret I have is that I didn't have time to implement optimizations such as (1) making the code compatible with the <b>Burst Compiler</b>'s 
 						requirements for low-level optimization, and (2) implementing <b>Sort and Sweep</b> for the broad phase collision detection. But I didn't let that
 						stop me from enjoying this nice little Newton's Cradle!
+						<br /><br />
 					</div>
 					<div class="col-6 col-12-medium imp-medium">
 						<span class="image fit"><img src="newtons-cradle.gif" alt="" /></span>

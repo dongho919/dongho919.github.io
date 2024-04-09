@@ -37,6 +37,7 @@
 						<a href="https://adni.loni.usc.edu/">Alzheimer's Disease Neuroimaging Initiative (ADNI)</a> provides access to high-quality MRI brain scans for research purposes.
 						These brain scans are stored in a special format called NIfTI (.nii) that encodes 3D MRI data digitally.
 						<a href="https://socr.umich.edu/HTML5/BrainViewer/">Click here</a> to view a sample .nii file for yourself.
+						<br /><br />
 					</div>
 					<div class="col-6 col-12-medium imp-medium">
 						<span class="image fit"><a href="https://socr.umich.edu/HTML5/BrainViewer/"><img src="nifti.png" alt="" /></a></span>
@@ -48,6 +49,7 @@
 						To convert a .nii file into 2D image data, we used a Python package called <a href="https://nipy.org/nibabel/"><b>NiBabel</b></a>,
 						and thanks to this, we were able to see images like the ones you see here.
 						But these slices weren't the ones we were looking for; we only wanted to look at a few slices from the middle part of the cerebrum.
+						<br /><br />
 					</div>
 					<div class="col-6 col-12-medium imp-medium">
 						<span class="image fit"><img src="non-suitable.png" alt="" /></span>
@@ -60,6 +62,7 @@
 						But we already had a solution on hand: machine learning! 
 						So we obtained a fairly large .png dataset from Kaggle and applied <b>transfer learning</b> to the <b>VGG19</b> model using <b>Tensorflow</b>.
 						And our dataset was ready to go!
+						<br /><br />
 					</div>
 					<div class="col-6 col-12-medium imp-medium">
 						<span class="image fit"><img src="dataset-generation.png" alt="" /></span>
@@ -71,6 +74,7 @@
 						We have tried many different neural network models, including <b>VGG16</b>, <b>VGG19</b>, <b>ResNet50</b>, and our own
 						<b>Convolutional Neural Network (CNN)</b>, and we didn't want to pick one and throw away everything else.
 						That's why we decided to make an <b>Ensemble Model</b> using VGG19, CNN, and ResNet50.
+						<br /><br />
 					</div>
 					<div class="col-6 col-12-medium imp-medium">
 						<span class="image fit"><img src="ensemble.png" alt="" /></span>
@@ -87,6 +91,7 @@
 							<li>GPU: NVIDIA GeForce GTX 1660 SUPER</li>
 							<li>RAM: 16 GB</li>
 						</ul>
+						<br /><br />
 					</div>
 					<div class="col-6 col-12-medium imp-medium">
 						<span class="image fit"><img src="cuda.png" alt="" /></span>
@@ -97,6 +102,7 @@
 						<h3>Metrics & Results</h3>
 						Ultimately, we determined that high <b>sensitivity</b> (True Positive / (True Positive + False Negative)) is the most important metric for our purposes,
 						and continued to fine-tune our model to reach 98.2% sensitivity, which means only <b>1.8%</b> of demented patients would go undiagnosed using our model.
+						<br /><br />
 					</div>
 					<div class="col-5 col-12-medium imp-medium">
 						<div class="table-wrapper">
