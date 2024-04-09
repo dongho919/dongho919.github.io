@@ -1,0 +1,152 @@
+<!DOCTYPE HTML>
+<!--
+	Photon by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>The Drawer War</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<section id="header">
+			<div class="inner">
+				<header class="major">
+					<h2>The Drawer War</h2>
+					<h3>August 2023 - December 2023</h3>
+				</header>
+				<ul style="list-style-type: none;">
+					<li>Language: Unity ECS/C#</li>
+					<li>Team size: 2</li>
+					<li>Role: Physics Engine Programmer</li>
+				</ul>
+			</div>
+		</section>
+
+		<!-- One -->
+		<section id="one" class="main style3">
+			<div class="container">
+				<div class="row gtr-150">
+					<div class="col-12 col-12-medium">
+						Unity Engine has a new feature called <b><a href="https://unity.com/ecs">ECS for Unity</a></b>. It enforces <b>Data-Oriented Programming (DOP)</b>
+						through certain restrictions on the entity query-update loop, such as the <b>query-foreach syntax</b> shown in the actual code snippet below.<br /><br />
+
+						My teammate and I set out to make a full-scoped game, but the ECS framework proved to be more challenging than initially thought, lacking a lot of features
+						and providing no support for stable 2D physics.
+						So, we decided to turn our project into a tech demo, with me doing the physics engine and my teammate doing finite-state-machine-based AI.
+						To my surprise, there weren't that many great resources out there when it came to game physics. I've gotten help from <b><a href="https://allenchou.net/">Allen Chou</a></b>,
+						<b>Kevin Yu</b>, <b><a href="https://www.gdcvault.com/play/1020603/Physics-for-Game-Programmers-Understanding">Erin Catto</a></b>, and DigiPen Professor
+						<b>Erik Mohrmann</b>.
+					</div>
+				</div>
+
+				<div class="row gtr-150">
+					<div class="col-12 col-12-medium">
+						<pre style="tab-size: 4"><code>foreach (var (physics, transform) in SystemAPI.Query&lt;RefRW&lt;DrawerPhysics&gt;, RefRW&lt;LocalTransform&gt;&gt;())
+{
+  	if (physics.ValueRO.enabled != 0)
+	{
+		// do collision stuff
+	}
+	else
+	{
+		// do gravity only
+	}
+}</code></pre>
+					</div>
+				</div>
+
+				<div class="row gtr-150">
+					<div class="col-6 col-12-medium">
+						<h3>Collision Detection</h3>
+						<b>Separating Axis Theorem (SAT)</b> can be used to detect if one convex polygon is penetrating another convex polygon. SAT will generate
+						a penetrating point, penetration normal and depth.<br /><br />
+						
+						We can make an optimization here called <b>Edge Collison</b>. This is when the two edges in contact are parallel and therefore the two contact
+						points can simply be treated as one, halving the processing needs and making the simulation more stable.
+					</div>
+					<div class="col-6 col-12-medium imp-medium">
+						<span class="image fit"><img src="edge-collision.gif" alt="" /></span>
+					</div>
+				</div>
+
+				<div class="row gtr-150">
+					<div class="col-6 col-12-medium">
+						<h3>Collision Resolution</h3>
+						Collisions can be resolved by solving them for impulse (yes, the one we learned in physics class).
+						I won't go into the nitty gritty details of how that works, but if you'd like to know more,
+						<a href="https://research.ncl.ac.uk/game/mastersdegree/gametechnologies/physicstutorials/5collisionresponse/Physics%20-%20Collision%20Response.pdf">this paper</a> goes
+						into how the impulse-based approach works.
+					</div>
+					<div class="col-6 col-12-medium imp-medium">
+						<span class="image fit"><img src="collisions.gif" alt="" /></span>
+					</div>
+				</div>
+
+				<div class="row gtr-150">
+					<div class="col-6 col-12-medium">
+						<h3>Stability</h3>
+						Stability becomes important when there are constant contact points that are under constant pressure, as small errors in impulse can quickly accumulate
+						over a few frames and end in a catastrophe. I've looked into it and chose to implement <b>Sequential Impulses</b> and <b>Baumgarte Stabilization</b>.
+						These methods will prevent objects from sinking into each other or getting lodged.
+					</div>
+					<div class="col-6 col-12-medium imp-medium">
+						<span class="image fit"><img src="towers.gif" alt="" /></span>
+					</div>
+				</div>
+
+				<div class="row gtr-150">
+					<div class="col-6 col-12-medium">
+						<h3>Friction</h3>
+						In addition, we should also be mindful of another type of impulse: <b>Tangential Impulse</b> exerted by friction. Sequential impulse and Baumgarte
+						stabilization can make a tower stable, but a structure like a pyramid would also require precise tangential impulse to stay still.<br /><br />
+
+						An overview of stability and friction can be found <a href="http://allenchou.net/2013/12/game-physics-resolution-contact-constraints/">here</a>.
+					</div>
+					<div class="col-6 col-12-medium imp-medium">
+						<span class="image fit"><img src="pyramid.gif" alt="" /></span>
+					</div>
+				</div>
+
+				<div class="row gtr-150">
+					<div class="col-6 col-12-medium">
+						<h3>Conclusion</h3>
+						In this article, I have showcased my implementation of a 2D physics engine that handles everything better than the built-in ECS physics engine.
+						The only regret I have is that I didn't have time to implement optimizations such as (1) making the code compatible with the <b>Burst Compiler</b>'s 
+						requirements for low-level optimization, and (2) implementing <b>Sort and Sweep</b> for the broad phase collision detection. But I didn't let that
+						stop me from enjoying this nice little Newton's Cradle!
+					</div>
+					<div class="col-6 col-12-medium imp-medium">
+						<span class="image fit"><img src="newtons-cradle.gif" alt="" /></span>
+					</div>
+				</div>
+
+				<ul class="actions">
+					<li><a href="../index.html" class="button primary">Back</a></li>
+					<li><a href="https://github.com/dongho919/the-drawer-war/" class="button">Repo</a></li>
+				</ul>
+			</div>
+		</section>
+		
+		<!-- Footer -->
+		<section id="footer">
+			<ul class="copyright">
+				<li>&copy; Dongho Lee</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+			</ul>
+		</section>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+
+	</body>
+</html>

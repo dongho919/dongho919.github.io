@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<!--
+	Photon by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Alzheimer's Detection</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<section id="header">
+			<div class="inner">
+				<header class="major">
+					<h2>Alzheimer's Detection</h2>
+					<h3>August 2021 - April 2022</h3>
+				</header>
+				<ul style="list-style-type: none;">
+					<li>Language: Python</li>
+					<li>Team size: 3</li>
+					<li>Role: Producer, Machine Learning Engineer</li>
+				</ul>
+			</div>
+		</section>
+
+		<!-- One -->
+		<section id="one" class="main style3">
+			<div class="container">
+				<div class="row gtr-150">
+					<div class="col-6 col-12-medium">
+						<h3>Obtaining the MRI Dataset</h3>
+						<a href="https://adni.loni.usc.edu/">Alzheimer's Disease Neuroimaging Initiative (ADNI)</a> provides access to high-quality MRI brain scans for research purposes.
+						These brain scans are stored in a special format called NIfTI (.nii) that encodes 3D MRI data digitally.
+						<a href="https://socr.umich.edu/HTML5/BrainViewer/">Click here</a> to view a sample .nii file for yourself.
+					</div>
+					<div class="col-6 col-12-medium imp-medium">
+						<span class="image fit"><a href="https://socr.umich.edu/HTML5/BrainViewer/"><img src="nifti.png" alt="" /></a></span>
+					</div>
+				</div>
+				<div class="row gtr-150">
+					<div class="col-6 col-12-medium">
+						<h3>Cleaning Up the Dataset</h3>
+						To convert a .nii file into 2D image data, we used a Python package called <a href="https://nipy.org/nibabel/"><b>NiBabel</b></a>,
+						and thanks to this, we were able to see images like the ones you see here.
+						But these slices weren't the ones we were looking for; we only wanted to look at a few slices from the middle part of the cerebrum.
+					</div>
+					<div class="col-6 col-12-medium imp-medium">
+						<span class="image fit"><img src="non-suitable.png" alt="" /></span>
+					</div>
+				</div>
+				<div class="row gtr-150">
+					<div class="col-6 col-12-medium">
+						<h3>Automated Dataset Generation</h3>
+						The position of the head in each .nii file is different, so we couldn't just blindly select, say, the 100-102th slices from each .nii file.
+						But we already had a solution on hand: machine learning! 
+						So we obtained a fairly large .png dataset from Kaggle and applied <b>transfer learning</b> to the <b>VGG19</b> model using <b>Tensorflow</b>.
+						And our dataset was ready to go!
+					</div>
+					<div class="col-6 col-12-medium imp-medium">
+						<span class="image fit"><img src="dataset-generation.png" alt="" /></span>
+					</div>
+				</div>
+				<div class="row gtr-150">
+					<div class="col-6 col-12-medium">
+						<h3>Neural Network Training</h3>
+						We have tried many different neural network models, including <b>VGG16</b>, <b>VGG19</b>, <b>ResNet50</b>, and our own
+						<b>Convolutional Neural Network (CNN)</b>, and we didn't want to pick one and throw away everything else.
+						That's why we decided to make an <b>Ensemble Model</b> using VGG19, CNN, and ResNet50.
+					</div>
+					<div class="col-6 col-12-medium imp-medium">
+						<span class="image fit"><img src="ensemble.png" alt="" /></span>
+					</div>
+				</div>
+				<div class="row gtr-150">
+					<div class="col-6 col-12-medium">
+						<h3>Getting Help from the GPU</h3>
+						Due to the massive size of these neural network models and the number of images used in training, we needed to find a way to optimize the training process.
+						We came across <b>CUDA Deep Neural Network (cuDNN)</b> which enabled our program to take advantage of the GPU's superior processing power
+						and make the training process <b>13 times</b> faster!
+						<ul style="text-align: left;">
+							<li>CPU: Intel i5-10400F CPU @ 2.90GHz (hexa-core)</li>
+							<li>GPU: NVIDIA GeForce GTX 1660 SUPER</li>
+							<li>RAM: 16 GB</li>
+						</ul>
+					</div>
+					<div class="col-6 col-12-medium imp-medium">
+						<span class="image fit"><img src="cuda.png" alt="" /></span>
+					</div>
+				</div>
+				<div class="row gtr-150">
+					<div class="col-7 col-12-medium">
+						<h3>Metrics & Results</h3>
+						Ultimately, we determined that high <b>sensitivity</b> (True Positive / (True Positive + False Negative)) is the most important metric for our purposes,
+						and continued to fine-tune our model to reach 98.2% sensitivity, which means only <b>1.8%</b> of demented patients would go undiagnosed using our model.
+					</div>
+					<div class="col-5 col-12-medium imp-medium">
+						<div class="table-wrapper">
+							<table class="alt">
+								<tbody>
+									<tr>
+										<td></td>
+										<td>Prediction: ND</td>
+										<td>Prediction: D</td>
+									</tr>
+									<tr>
+										<td>Actual: ND</td>
+										<td>True Negative</td>
+										<td>False Positive</td>
+									</tr>
+									<tr>
+										<td>Actual: D</td>
+										<td>False Negative</td>
+										<td>True Positive</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<p style="text-align:right">ND: Not Demented, D: Demented</p>
+					</div>
+				</div>
+				<ul class="actions">
+					<li><a href="../index.html" class="button primary">Back</a></li>
+					<li><a href="https://github.com/dongho919/alzheimers-detection/" class="button">Repo</a></li>
+				</ul>
+			</div>
+		</section>
+		<!-- Footer -->
+		<section id="footer">
+			<ul class="copyright">
+				<li>&copy; Dongho Lee</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+			</ul>
+		</section>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+
+	</body>
+</html>
